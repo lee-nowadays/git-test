@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .container {
+      width: 75%;
+      margin: auto;
+      padding: 1rem;
+      border: 1px solid #333;
+    }
+
+    .wrap {
+      border: 5px dashed #333;
+      margin: 50px;
+      padding: 50px 0;
+      position: relative;
+    }
+
+    .box {
+      width: 100px;
+      height: 100px;
+      background: #000;
+      color: white;
+      text-align: center;
+      line-height: 100px;
+      font-size: 2rem;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    /* 建立動畫Animation */
+    /* 步驟一，先建立一組關鍵影格(keyframes) ，設定動畫名稱(名字自取)，起始 from (0%)狀態、結束 to (100%)狀態*/
+
+    @keyframes animation
+
+    /* 名稱自定義 */
+      {
+      0% {
+        background-color: red;
+        transform: translate(0, 0);
+      }
+
+      50% {
+        background-color: #0f0;
+      }
+
+      100% {
+        background-color: blue;
+        transform: translate(50vw, 0);
+      }
+    }
+
+    /* 步驟二，可以創建一個動畫專用的class，用來設定動畫的各種屬性 */
+    .animation {
+      
+      /* animation: name duration timing-function delay iteration-count direction fill-mode; */
+      
+      animation-name: animation;
+
+      animation-delay: 3s;
+      /* 播放時間 */
+      animation-duration: 3s;
+      /* 播放次數 預設1，infinite無限循環*/
+      animation-iteration-count: 1;
+      /* 
+        播放速率
+        ease 預設
+        linear 維持等速
+        ease-in 由慢變快
+        ease-out 由快變慢
+        ease-in-out 由慢變快，在由快變慢
+      */
+      animation-timing-function: linear;
+
+      /* 
+        播放方向
+        normal(預設)正向播放 =>0%到100%播放
+        reverse反向播放 => 100%到0%播放
+        alternate 交替播放 => 播放次數為奇數時正向播放(0%~100%)，播放次數為偶數時反向播放(100%~0%)
+        alternate-reverse 交替播放 => 播放次數為奇數時反向播放(100%~0%)，播放次數為偶數時正向播放(0%~100%)
+      */
+      animation-direction: reverse;
+
+      /* 
+        播放的填充模式 none、forwards、backwords、both
+        當 animation-direction:normal 正向播放 0% => 100%
+        none => 動畫結束時回到沒有進入動畫的初始狀態
+        forwords => 動畫結束時停留在動畫最後一幀，會根據動畫播放方向animation-direction設定有所不同，正向播放最後一幀在100%(藍色)
+        backwards => 當設定 delay(動畫等待時期)時動畫一開始會停在第一幀(正向播放第一幀在0%，反向為100%)，動畫結束後回到沒有進入動畫的初始狀態
+        both => 動畫一開始在第一幀(紅色)，結束停留在動畫最後一幀(藍色)
+
+        當 animation-direction:reverse 反向播放 100% => 0%
+        none => 動畫結束時回到沒有進入動畫的初始狀態
+        forwords => 動畫結束時停留在動畫最後一幀，會根據動畫播放方向animation-direction設定有所不同，反向播放最後一幀在0%(紅色)
+        backwards => 當設定 delay(動畫等待時期)時動畫一開始會停在第一幀(反向播放第一幀在0=100%，反向為0%)，動畫結束後回到沒有進入動畫的初始狀態
+        both => 動畫一開始在第一幀(藍色)，結束停留在動畫最後一幀(紅色)
+      */
+      animation-fill-mode: backwards;
+      /* 控制動畫是否暫停或播放，預設running、或設定paused暫停 */
+      animation-play-state: running;
+      /* 縮寫 裡面有兩個時間的話 第一個為持續時間 第二個為延遲時間 */
+      animation: animation 3s  .5s alternate-reverse infinite ease-in forwards paused;
+    }
+    .multiple{
+      animation-name: rotateIt,moveIt;
+
+      animation: rotateIt 2s 1 ,moveIt 6s 1;
+    }
+    @keyframes rotateIt {
+      
+      /*0%{
+        transform: rotate(0deg)
+      }
+      
+      */
+      /* 直接寫50%有一樣的效果 */
+      50%{
+        transform: rotate(360deg) ;
+
+      }
+      /*       
+        100%{
+        transform: rotate(0deg);
+
+      } */
+    }
+    /* @keyframes moveIt {
+      50%{
+        margin-left: 1000px;
+      }
+    } */
+
+    @keyframes moveIt {
+      50%{
+        left: 1000px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>動畫(animation)</h1>
+    <p>動畫與轉場的差異:</p>
+    <h2>animation</h2>
+    <ul>
+      <li>可以設定關鍵影格(keyframes)控制動畫進度，產生更複雜的動畫</li>
+      <li>網頁載入可以自動發生，也可觸發發生(例如新增、刪除class)，可以循環重複來回播放等等</li>
+    </ul>
+    <h2>transition</h2>
+    <ul>
+      <li>一定要有觸發條件，兩種樣式狀態的改變，通常透過偽類:hover、:checked等狀態，等等來觸發</li>
+      <li>無法在網頁載入時自動發生，而且是一次性且沒有循環效果，必須再重新觸發一次</li>
+      
+    </ul>
+    <div class="wrap">
+      <div class="box animation">box</div>
+    </div>
+  </div>
+
+  <div class="container">
+    <h2>可套用多個動畫，用逗點隔開</h2>
+    <div class="wrap">
+      <div class="box multiple"></div>
+      <div class="box"></div>
+    </div>
+  </div>
+</body>
+
+</html>
