@@ -5,7 +5,22 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  
+  <style>
+    h1{
+      width: 330px; 
+      border-right:1px solid #000 ;
+      white-space: nowrap;
+      overflow: hidden;
+      animation: text 3s steps(10,end) infinite , border 1s step-end infinite;
+    }
+    @keyframes text {
+      0%{width: 0;}
+      100%{width: 330px;}
+    }
+    @keyframes border {
+      50%{border-right: 0px;}
+    }
+  </style>
 </head>
 <body>
   <h1>我要成為前端工程師</h1>
